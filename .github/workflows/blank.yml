@@ -19,7 +19,7 @@ jobs:
         ls
         pyinstaller --onefile ./source/helloWorld.py
         ls
-    - uses: actions/upload-artifact@v1
-      with:
-        name: helloWorld
-        path: helloWorld
+ #   - uses: actions/upload-artifact@v1
+ #     with:
+ #       name: helloWorld
+ #       path: helloWorld
