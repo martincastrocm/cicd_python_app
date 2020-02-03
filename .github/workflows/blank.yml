@@ -18,8 +18,14 @@ jobs:
         pwd
         ls
         pyinstaller --onefile ./source/helloWorld.py
-        ls
- #   - uses: actions/upload-artifact@v1
- #     with:
- #       name: helloWorld
- #       path: helloWorld
+
+    - name: list objects
+      run: ls -la     
+    - uses: actions/upload-artifact@v1
+      with:
+        name: helloWorld.spec
+        path: helloWorld.spec
+    - uses: actions/upload-artifact@v2
+      with:
+        name: build
+        path: build
