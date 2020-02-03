@@ -13,12 +13,12 @@ jobs:
       run: |
         python -m pip install -U pip setuptools
         pip install pyinstaller==3.5
+        PATH=$PATH:/home/runner/.local/bin
     - name: Run a multi-line script
       run: |
         pwd
         ls
         pyinstaller --onefile --hidden-import configparser ./source/helloWorld.py
-        PATH=$PATH:/home/runner/.local/bin
 
     - name: list objects
       run: ls -la     
