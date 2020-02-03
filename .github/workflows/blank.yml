@@ -9,11 +9,17 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
-    - name: Run a one-line script
-      run: echo Hello, world!
+    - name: install
+      run: |
+        python -m pip install -U pip setuptools
+        pip install pyinstaller==3.5
     - name: Run a multi-line script
       run: |
         pwd
         ls
-        python ./source/helloWorld.py
-        system_profiler SPSoftwareDataType
+        pyinstaller --onefile ./source/helloWorld.py
+        ls
+    - uses: actions/upload-artifact@v1
+      with:
+        name: helloWorld
+        path: helloWorld
