@@ -13,9 +13,10 @@ jobs:
       run: |
         python -m pip install -U pip setuptools
         pip install pyinstaller==3.5
-        PATH=$PATH:/home/runner/.local/bin
+        export PATH=$PATH:/home/runner/.local/bin
     - name: Run a multi-line script
       run: |
+        export PATH=$PATH:/home/runner/.local/bin
         pwd
         ls
         pyinstaller --onefile --hidden-import configparser ./source/helloWorld.py
