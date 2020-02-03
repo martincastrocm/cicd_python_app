@@ -17,7 +17,7 @@ jobs:
       run: |
         pwd
         ls
-        pyinstaller--onefile ./source/helloWorld.py
+        pyinstaller --onefile --hidden-import configparser ./source/helloWorld.py
 
     - name: list objects
       run: ls -la     
