@@ -12,12 +12,12 @@ jobs:
     - name: install
       run: |
         python -m pip install -U pip setuptools
-        pip install pyinstaller==3.5
+        pip install pyinstaller
     - name: Run a multi-line script
       run: |
         pwd
         ls
-        pyinstaller --onefile ./source/helloWorld.py
+        pyinstaller--onefile ./source/helloWorld.py
 
     - name: list objects
       run: ls -la     
