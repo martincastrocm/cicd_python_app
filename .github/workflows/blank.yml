@@ -16,3 +16,4 @@ jobs:
         pwd
         ls
         python ./source/helloWorld.py
+        system_profiler SPSoftwareDataType
