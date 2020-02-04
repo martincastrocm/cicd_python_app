@@ -23,8 +23,10 @@ jobs:
         pyinstaller --onefile --hidden-import configparser helloWorld.py
 
     - name: list objects
-      run: ls -la     
+      run: |
+          cd source
+          ls -la     
     - uses: actions/upload-artifact@v1
       with:
         name: helloWorld
-        path: /source/helloWorld.py
+        path: /source/helloWorld
