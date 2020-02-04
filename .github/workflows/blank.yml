@@ -24,9 +24,9 @@ jobs:
 
     - name: list objects
       run: |
-          cd source
+          cd source/dist
           ls -la     
     - uses: actions/upload-artifact@v1
       with:
         name: helloWorld
-        path: /source/helloWorld
+        path: /source/dist/helloWorld
