@@ -19,15 +19,12 @@ jobs:
         export PATH=$PATH:/home/runner/.local/bin
         pwd
         ls
-        pyinstaller --onefile --hidden-import configparser ./source/helloWorld.py
+        cd source
+        pyinstaller --onefile --hidden-import configparser helloWorld.py
 
     - name: list objects
       run: ls -la     
     - uses: actions/upload-artifact@v1
       with:
-        name: helloWorld.spec
-        path: helloWorld.spec
-    - uses: actions/upload-artifact@v1
-      with:
-        name: build
-        path: build
+        name: helloWorld
+        path: /source/helloWorld.py
