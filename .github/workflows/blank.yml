@@ -38,7 +38,7 @@ jobs:
       if: github.ref == 'refs/heads/master'
       run: |
         ls source/dist/
-        aws s3 cp source/dist/helloWorld s3://martin-test-87/fair-app-dev/FAIR-CLI.bin --region us-east-1
+        aws s3 cp source/dist/helloWorld s3://martin-test-87-2/fair-app-dev/FAIR-CLI.bin
 
     - uses: actions/upload-artifact@v1
       with:
