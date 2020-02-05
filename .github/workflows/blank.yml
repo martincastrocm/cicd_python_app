@@ -28,10 +28,12 @@ jobs:
         cd source
         ls -la
         pyinstaller --onefile --hidden-import configparser helloWorld.py
-    - name: upload develop binary
-      env:
-        AWS_ACCES_KEY_ID:  ${{ secrets.aws_access_key_id }}
-        AWS_SECRET_ACCES_KEY:  ${{ secrets.aws_secret_access_key }} 
+    - name: Configure AWS Credentials
+      uses: aws-actions/configure-aws-credentials@v1
+      with:
+        aws-access-key-id: ${{ secrets.aws_access_key_id }}
+        aws-secret-access-key: ${{ secrets.aws_secret_access_key }}
+        aws-region: us-east-1
       if: github.ref == 'refs/heads/master'
       run: |
         ls source/dist/
