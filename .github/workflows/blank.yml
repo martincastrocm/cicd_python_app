@@ -8,9 +8,6 @@ on:
 
 jobs: 
   build:
-    env:
-      AWS_ACCES_KEY_ID:  ${{ secrets.aws_access_key_id }}
-      AWS_SECRET_ACCES_KEY:  ${{ secrets.aws_secret_access_key }} 
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -32,6 +29,9 @@ jobs:
         ls -la
         pyinstaller --onefile --hidden-import configparser helloWorld.py
     - name: upload develop binary
+      env:
+        AWS_ACCES_KEY_ID:  ${{ secrets.aws_access_key_id }}
+        AWS_SECRET_ACCES_KEY:  ${{ secrets.aws_secret_access_key }} 
       if: github.ref == 'refs/heads/master'
       run: |
         ls source/dist/
