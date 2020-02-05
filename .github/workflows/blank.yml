@@ -32,7 +32,7 @@ jobs:
         ls -la
         pyinstaller --onefile --hidden-import configparser helloWorld.py
     - name: upload develop binary
-      if: github.ref == 'master'
+      if: github.ref == 'refs/heads/master'
       run: |
         ls source/dist/
         aws s3 cp source/dist/helloWorld s3://martin-test-87/fair-app-dev/FAIR-CLI.bin --region us-east-1
