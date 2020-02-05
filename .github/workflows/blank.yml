@@ -1,31 +1,42 @@
-name: CI
+name: Python package
 
-on: [push]
+on:
+  # Trigger the workflow on push only for the master and develop branch
+  push:
+    branches:
+      - master 
 
-jobs:
+jobs: 
   build:
-
-    runs-on: macos-latest
-
+    env:
+      AWS_ACCES_KEY_ID:  ${{ secrets.aws_access_key_id }}
+      AWS_SECRET_ACCES_KEY:  ${{ secrets.aws_secret_access_key }} 
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: [3.7]
     steps:
     - uses: actions/checkout@v2
-    - name: install
+    - name: Set up Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v1
+      with:
+        python-version: ${{ matrix.python-version }}
+    - name: Install dependencies
       run: |
+        pip install awscli --upgrade --user
         python -m pip install -U pip setuptools
-        pip install pyinstaller==3.5
-        export PATH=$PATH:/home/runner/.local/bin
-    - name: Run a multi-line script
+        pip install pyinstaller
+    - name: Generate executable
       run: |
-        export PATH=$PATH:/home/runner/.local/bin
-        pwd
-        ls
         cd source
+        ls -la
         pyinstaller --onefile --hidden-import configparser helloWorld.py
-
-    - name: list objects
+    - name: upload develop binary
+      if: github.ref == 'master'
       run: |
-          cd source/dist
-          ls -la     
+        ls source/dist/
+        aws s3 cp source/dist/helloWorld s3://martin-test-87/fair-app-dev/FAIR-CLI.bin --region us-east-1
+
     - uses: actions/upload-artifact@v1
       with:
         name: helloWorld
