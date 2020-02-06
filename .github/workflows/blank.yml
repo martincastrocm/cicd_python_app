@@ -5,6 +5,8 @@ on:
   push:
     branches:
       - master 
+    tags:
+    - '*'
 
 jobs: 
   build:
@@ -28,17 +30,17 @@ jobs:
         cd source
         ls -la
         pyinstaller --onefile --hidden-import configparser helloWorld.py
-    - name: Configure AWS Credentials
-      uses: aws-actions/configure-aws-credentials@v1
-      with:
-        aws-access-key-id: ${{ secrets.aws_access_key_id }}
-        aws-secret-access-key: ${{ secrets.aws_secret_access_key }}
-        aws-region: us-east-1
-    - name: upload to s3
-      if: github.ref == 'refs/heads/master'
-      run: |
-        ls source/dist/
-        aws s3 cp source/dist/helloWorld s3://martin-test-87-2/fair-app-dev/FAIR-CLI.bin
+    #- name: Configure AWS Credentials
+    #  uses: aws-actions/configure-aws-credentials@v1
+    #  with:
+    #    aws-access-key-id: ${{ secrets.aws_access_key_id }}
+    #    aws-secret-access-key: ${{ secrets.aws_secret_access_key }}
+    #    aws-region: us-east-1
+    #- name: upload to s3
+    #  if: github.ref == 'refs/heads/master'
+    #  run: |
+    #    ls source/dist/
+    #    aws s3 cp source/dist/helloWorld s3://martin-test-87-2/fair-app-dev/FAIR-CLI.bin
 
     - uses: actions/upload-artifact@v1
       with:
