@@ -3,8 +3,8 @@ name: Python package
 on:
   # Trigger the workflow on push only for the master and develop branch
   push:
-    tags:
-    - '*'
+    branches:
+      - develop 
 
 jobs: 
   build:
@@ -27,7 +27,8 @@ jobs:
       run: |
         cd source
         ls -la
-        pyinstaller --onefile --hidden-import configparser helloWorld.py
+        tag_version = "1.0"
+        pyinstaller --onefile --hidden-import configparser --add-data tag_version:. helloWorld.py
     #- name: Configure AWS Credentials
     #  uses: aws-actions/configure-aws-credentials@v1
     #  with:
