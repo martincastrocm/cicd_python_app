@@ -29,7 +29,8 @@ jobs:
       run: |
         cd source
         ls -la
-        tag_version = "1.0"
+        VERSION=1.0
+        echo ${VERSION} > tag_version
         pyinstaller --onefile --hidden-import configparser --add-data tag_version:. helloWorld.py
     - name: master
       if: github.ref == 'refs/heads/master'
