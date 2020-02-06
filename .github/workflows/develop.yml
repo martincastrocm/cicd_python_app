@@ -36,6 +36,7 @@ jobs:
       if: github.event_name == 'release'
       run: |
         echo "master branch"
+        echo $GITHUB_REF
     - name: develop
       if: github.ref == 'refs/heads/develop'
       run: |
