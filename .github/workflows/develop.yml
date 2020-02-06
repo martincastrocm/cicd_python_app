@@ -5,7 +5,9 @@ on:
   push:
     branches:
       - develop 
-
+  release:
+    types: # This configuration does not affect the page_build event above
+      - created
 jobs: 
   build:
     runs-on: ubuntu-latest
@@ -29,6 +31,15 @@ jobs:
         ls -la
         tag_version = "1.0"
         pyinstaller --onefile --hidden-import configparser --add-data tag_version:. helloWorld.py
+    - name: master
+      if: github.ref == 'refs/heads/master'
+      run: |
+        echo "master branch"
+    - name: develop
+      if: github.ref == 'refs/heads/develop'
+      run: |
+        echo "develop branch"
+
     #- name: Configure AWS Credentials
     #  uses: aws-actions/configure-aws-credentials@v1
     #  with:
