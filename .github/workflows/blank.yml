@@ -3,8 +3,6 @@ name: Python package
 on:
   # Trigger the workflow on push only for the master and develop branch
   push:
-    branches:
-      - master 
     tags:
     - '*'
 
