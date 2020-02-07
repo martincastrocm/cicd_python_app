@@ -25,6 +25,12 @@ jobs:
         pip install awscli --upgrade --user
         python -m pip install -U pip setuptools
         pip install pyinstaller
+
+        if [ GITHUB_REF == 'refs/heads/develop' ]; then
+          echo 'hello'
+        else
+          echo 'bye'
+        fi
     - name: Generate executable
       run: |
         cd source
