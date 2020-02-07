@@ -20,17 +20,18 @@ jobs:
       uses: actions/setup-python@v1
       with:
         python-version: ${{ matrix.python-version }}
-    - name: Install dependencies
+        - name: Generate executable
       run: |
-        pip install awscli --upgrade --user
-        python -m pip install -U pip setuptools
-        pip install pyinstaller
-
         if [ $GITHUB_REF == 'refs/heads/develop' ]; then
           echo 'hello'
         else
           echo 'bye'
         fi
+    - name: Install dependencies
+      run: |
+        pip install awscli --upgrade --user
+        python -m pip install -U pip setuptools
+        pip install pyinstaller
     - name: Generate executable
       run: |
         cd source
