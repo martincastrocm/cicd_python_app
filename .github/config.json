@@ -1,0 +1,11 @@
+{
+    "config_dev"        :   "config_facebook_dev.py",
+    "config_prod"       :   "config_facebook_prod.py",
+    "main"              :   "FAIR.py",
+    "bucket_prod_path"  :   "s3://fair-artifact/fair-app",
+    "app_name_dev"      :   "fair-aws-cli-dev.app",
+    "app_name_prod"     :   "fair-aws-cli.app",
+    "bucket_dev_path"   :   "s3://fair-binary-bucket-dev/fair-app",
+    "test"              :   "test2",
+    "region"            :   "us-west-2"
+}
