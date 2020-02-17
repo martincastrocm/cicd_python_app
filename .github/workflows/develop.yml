@@ -29,9 +29,10 @@ jobs:
     - name: update prod version parameter
       if:  github.ref == 'refs/heads/develop' #github.event_name == 'release'
       run: |
-        VERSION_NAME=$(python .github/scripts/parse_json.py .github/config.json '["test"]')
+        ls -la
+        VERSION_NAME=$(python ../.github/scripts/parse_json.py .github/config.json '["test"]')
         VERSION=$(python ../.github/scripts/split.py $GITHUB_REF / -1)
-        REGION=$(python .github/scripts/parse_json.py .github/config.json '["region"]') 
+        REGION=$(python ../.github/scripts/parse_json.py .github/config.json '["region"]') 
         aws ssm put-parameter --name $VERSION_NAME --value $VERSION --overwrite --region 
     #- name: try conditional
     #  run: |
