@@ -54,7 +54,7 @@ jobs:
     #    echo $(python split.py $GITHUB_REF -1) > tag_version
     #    pyinstaller --onefile --hidden-import configparser --add-data tag_version:. helloWorld.py
     - name: master
-      if: if: contains(github.ref, 'tags/FAIR')
+      if: contains(github.ref, 'tags/FAIR')
       run: |
         echo "master branch"
         echo $GITHUB_REF
