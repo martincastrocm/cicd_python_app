@@ -2,15 +2,10 @@ name: Python package
 
 on:
   # Trigger the workflow on push only for the master and develop branch
-  push:
-    tags:        
-      - FRL/*           # Push events to v1.0, v1.1, and v1.9 tags
   create:
     tags:        
       - FRL/*           # Push events to v1.0, v1.1, and v1.9 tags
 
-
-  
   #release:
   #  types: # This configuration does not affect the page_build event above
   #    - created
@@ -61,7 +56,7 @@ jobs:
     #    echo $(python split.py $GITHUB_REF -1) > tag_version
     #    pyinstaller --onefile --hidden-import configparser --add-data tag_version:. helloWorld.py
     - name: master
-      if: github.tag == 'FRL/*'
+      if: github.tag == ''
       run: |
         VERSION=$(python .github/scripts/split.py $GITHUB_REF / -1)
         echo $VERSION
