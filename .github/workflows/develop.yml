@@ -2,9 +2,7 @@ name: Python package
 
 on:
   # Trigger the workflow on push only for the master and develop branch
-  push:
-    branches:
-      - develop 
+  create:    
     tags:        
       - FAIR/*           # Push events to v1.0, v1.1, and v1.9 tags
   #release:
