@@ -58,7 +58,7 @@ jobs:
     #    echo $(python split.py $GITHUB_REF -1) > tag_version
     #    pyinstaller --onefile --hidden-import configparser --add-data tag_version:. helloWorld.py
     - name: master
-      if: contains(github.ref, 'tags')
+      if: contains(github.ref, 'tags/FRL')
       run: |
         VERSION=$(python .github/scripts/split.py $GITHUB_REF / -1)
         echo $VERSION
