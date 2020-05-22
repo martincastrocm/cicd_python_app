@@ -1,15 +1,15 @@
-name: FRL
+name: test binaries
 
 on:
-  # Trigger the workflow on push only for the master and develop branch
-  push:
-    tags:        
-      - FRL/*           # Push events to v1.0, v1.1, and v1.9 tags
-
+  push:    
+    branches:
+      - master
+    tags:
+      - *
 
 jobs: 
   build:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-latest #macos-latest
     strategy:
       matrix:
         python-version: [3.7]
@@ -19,65 +19,19 @@ jobs:
       uses: actions/setup-python@v1
       with:
         python-version: ${{ matrix.python-version }}
-    - name: Configure AWS Credentials
+    - name: Configure AWS FAIR Credentials
+      if: contains(github.ref, 'tags/FAIR')
       uses: aws-actions/configure-aws-credentials@v1
       with:
         aws-access-key-id: ${{ secrets.aws_access_key_id }}
         aws-secret-access-key: ${{ secrets.aws_secret_access_key }}
         aws-region: us-east-1
-    - name: update prod version parameter
-      if:  github.ref == 'refs/heads/develop' #github.event_name == 'release'
+    - name: Install dependencies
       run: |
-        ls -la
-        VERSION_NAME=$(python .github/scripts/parse_json.py .github/config.json '["test"]')
-        VERSION=$(python .github/scripts/split.py $GITHUB_REF / -1)
-        echo $VERSION
-        REGION=$(python .github/scripts/parse_json.py .github/config.json '["region"]') 
-        aws ssm put-parameter --name $VERSION_NAME --type String --value $VERSION --overwrite --region $REGION
-    #- name: try conditional
-    #  run: |
-    #    if [ $GITHUB_REF == 'refs/heads/develop' ]; then
-    #      echo 'hello'
-    #    else
-    #      echo 'bye'
-    #    fi
-    #- name: Install dependencies
-    #  run: |
-    #    pip install awscli --upgrade --user
-    #    python -m pip install -U pip setuptools
-    #    pip install pyinstaller
-    #- name: Generate executable
-    #  run: |
-    #    cd source
-    #    ls -la
-    #    echo $(python split.py $GITHUB_REF -1) > tag_version
-    #    pyinstaller --onefile --hidden-import configparser --add-data tag_version:. helloWorld.py
-    - name: master
-      if: contains(github.ref, 'tags/FRL')
+        echo "master branch"
+    - name: Upload binary
+      if: contains(github.ref, 'tags') 
       run: |
-        VERSION=$(python .github/scripts/split.py $GITHUB_REF / -1)
-        echo $VERSION
-        echo "hi FRL"
-        echo $GITHUB_REF
-    - name: develop
-      if: github.ref == 'refs/heads/develop'
-      run: |
-        echo "develop branch"
-        echo $GITHUB_REF
-
-    #- name: Configure AWS Credentials
-    #  uses: aws-actions/configure-aws-credentials@v1
-    #  with:
-    #    aws-access-key-id: ${{ secrets.aws_access_key_id }}
-    #    aws-secret-access-key: ${{ secrets.aws_secret_access_key }}
-    #    aws-region: us-east-1
-    #- name: upload to s3
-    #  if: github.ref == 'refs/heads/master'
-    #  run: |
-    #    ls source/dist/
-    #    aws s3 cp source/dist/helloWorld s3://martin-test-87-2/fair-app-dev/FAIR-CLI.bin
-
-   # - uses: actions/upload-artifact@v1
-   #   with:
-   #     name: helloWorld
-   #     path: ./source/dist/helloWorld
+        echo "tags in here ${PROJECT}"
+      env:
+        PROJECT: PROJECT   
