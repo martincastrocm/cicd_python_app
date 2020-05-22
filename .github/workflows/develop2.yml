@@ -30,7 +30,7 @@ jobs:
       run: |
         echo "master branch"
     - name: Upload binary
-      if: contains(github.ref, 'tags/v/') 
+      if: contains(github.ref, 'tags/v') 
       run: |
         echo "tags in here ${PROJECT}"
       env:
