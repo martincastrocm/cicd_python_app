@@ -5,7 +5,7 @@ on:
     branches:
       - master
     tags:
-      - *
+      - v/*
 
 jobs: 
   build:
@@ -20,7 +20,7 @@ jobs:
       with:
         python-version: ${{ matrix.python-version }}
     - name: Configure AWS FAIR Credentials
-      if: contains(github.ref, 'tags/FAIR')
+      if: contains(github.ref, 'tags/v/FAIR')
       uses: aws-actions/configure-aws-credentials@v1
       with:
         aws-access-key-id: ${{ secrets.aws_access_key_id }}
@@ -30,7 +30,7 @@ jobs:
       run: |
         echo "master branch"
     - name: Upload binary
-      if: contains(github.ref, 'tags') 
+      if: contains(github.ref, 'tags/v/') 
       run: |
         echo "tags in here ${PROJECT}"
       env:
